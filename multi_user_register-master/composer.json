@@ -1,0 +1,14 @@
+{
+  "name": "drupal/multi_user_register",
+  "type": "drupal-module",
+  "description": "Registers User through REST",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/multi_user_register",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/multi_user_register",
+    "source": "http://cgit.drupalcode.org/multi_user_register"
+  },
+  "require": { }
+}

@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Contains multi_user_register.module..
+ */
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function multi_user_register_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the multi_user_register module.
+    case 'help.page.multi_user_register':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Registers User through REST') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function multi_user_register_form_user_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  array_unshift($form['actions']['submit']['#submit'], 'multi_user_register_username_in_register_form');
+}
+
+/**
+ * Custom submit callback for user_register_form.
+ */
+function multi_user_register_username_in_register_form(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  multi_user_register_fetch_data($values);
+}
+
+/**
+ * Sends a httpClient request to the register user.
+ */
+function multi_user_register_fetch_data($values) {
+  $config = \Drupal::service('config.factory')->getEditable('multi_user_register.settings');
+  $originaldata = $config->getOriginal();
+  foreach ($originaldata as $key => $value) {
+    if ($key != 'things') {
+      $key_explode = explode('_', $key);
+      $data[$key_explode[0]][$key_explode[1]] = $value;
+    }
+  }
+  foreach ($data as $site) {
+    if ((!empty($site['url'])) && (!empty($site['username'])) && (!empty($site['password']))) {
+      $post_fields['mail'] = $values['mail'];
+      $post_fields['name'] = $values['name'];
+      $post_fields['status'] = $values['status'];
+      $post_fields['pass'] = $values['pass'];
+      $post_fields['roles'] = $values['roles'][0];
+      $post_fields['preferred_langcode'] = $values['preferred_langcode'];
+      $fields_string = json_encode($post_fields);
+      // Send POST Request.
+      $response = \Drupal::httpClient()
+          ->post($site['url'], [
+        'auth' => [$site['username'], $site['password']],
+        'body' => $fields_string,
+        'headers' => [
+          'Content-Type' => 'application/json',
+        ],
+      ]);
+    }
+  }
+}

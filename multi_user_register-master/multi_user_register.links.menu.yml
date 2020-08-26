@@ -1,0 +1,7 @@
+# Multi User Register menu items definition
+entity.multi_user_reg_config_entity.collection:
+  title: 'Multi User Register'
+  route_name: entity.multi_user_reg_config_entity.collection
+  description: 'Multi User Register Settings'
+  parent: user.admin_index
+  weight: 99

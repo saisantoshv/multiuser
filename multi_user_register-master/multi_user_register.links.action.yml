@@ -1,0 +1,11 @@
+entity.multi_user_reg_config_entity.add_form:
+  route_name: 'entity.multi_user_reg_config_entity.add_form'
+  title: 'Add SITE details'
+  appears_on:
+    - entity.multi_user_reg_config_entity.collection
+multi_user_register.admin_form:
+  route_name: 'multi_user_register.admin_form'
+  title: 'Multi User Site Settings'
+  appears_on:
+    - entity.multi_user_reg_config_entity.collection
+

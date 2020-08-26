@@ -1,0 +1,7 @@
+multi_user_register.admin_form:
+  path: /admin/people/multi_user_reg_fields
+  defaults:
+    _title: 'Multi User Register'
+    _form: \Drupal\multi_user_register\Form\MultiUserRegisterAdminForm
+  requirements:
+    _permission: 'multi user register admin control'

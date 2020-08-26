@@ -1,0 +1,21 @@
+multi_user_register.multi_user_reg_config_entity.*:
+  type: config_entity
+  label: 'Multi Site Details config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    username:
+      type: string
+      label: 'Username'
+    password:
+      type: string
+      label: 'Password'
+    url:
+      type: string
+      label: 'URL'

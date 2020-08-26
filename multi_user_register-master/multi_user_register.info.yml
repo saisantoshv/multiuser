@@ -1,0 +1,11 @@
+name: Multi User Register
+type: module
+description: Registers User through REST
+core: 8.x
+package: Other
+dependencies:
+  - rest
+  - restui
+  - basic_auth
+  - serialization
+
